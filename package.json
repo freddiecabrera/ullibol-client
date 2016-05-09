@@ -1,0 +1,22 @@
+{
+  "name": "ullibol-client",
+  "version": "1.0.0",
+  "description": "This is the client side of Ullibol",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freddiecabrera/ullibol-client.git"
+  },
+  "author": "Freddie Cabrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/freddiecabrera/ullibol-client/issues"
+  },
+  "homepage": "https://github.com/freddiecabrera/ullibol-client#readme"
+}
