@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router'
 
 import { LoginLink, LogoutLink, NotAuthenticated, Authenticated } from 'react-stormpath';
+import RaisedButton from 'material-ui/RaisedButton';
 
 export default class Header extends React.Component {
   render() {
@@ -9,10 +10,8 @@ export default class Header extends React.Component {
       <nav className="navbar navbar-default navbar-static-top">
         <div className="container">
           <div className="navbar-header">
-            <button type="button" data-toggle="collapse" data-target="#navbar-collapse" className="navbar-toggle collapsed">
-              <span className="sr-only">Toggle Navigation</span>
-              <span className="icon-bar"></span><span className="icon-bar"></span><span className="icon-bar"></span>
-            </button>
+          <h1 className='title-logo'>Ullibol</h1>
+          <RaisedButton label="Default" />
           </div>
           <div id="navbar-collapse" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">

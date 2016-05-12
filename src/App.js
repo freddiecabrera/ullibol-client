@@ -7,6 +7,10 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reduxThunk from 'redux-thunk'
 import reducers from './reducers'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+injectTapEventPlugin()
+
 
 const store = createStore(reducers, compose(
   applyMiddleware(reduxThunk),

@@ -1,3 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import url(https://fonts.googleapis.com/css?family=Exo+2:400,900);
+
 body {
-  background-color: red;
+  font-family: 'Roboto', Arial, serif;
+  font-weight: 400;
 }
+
+.IndexPageTitleContianer {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title-logo {
+  font-family: 'Exo 2', Arial, serif;
+  font-weight: 900;
+  text-align: center;
+  font-size: 60px;
+  padding-bottom: -1%;
+  color: #009d57;
+  padding-top: 20%;
+  overflow: hidden;
+}
+
+.IndexPageMexicoLogo {
+  height: 120px;
+  margin-left: -55%;
+  margin-top: 11%;
+}
+
+
+.IndexPageTitleContianer p {
+  color: #2F3132;
+  margin-top: -7%;
+}
+
+.IndexPageVerticalLine {
+  margin-top: -48%;
+  height: 296px;
+  width: 1px;
+  background: red;
+  margin-left: 50%;
+  margin-bottom: -19em;
+}
+
+.IndexPageLoginText {
+  font-family: 'Exo 2', Arial, serif;
+  font-weight: 900;
+  color: #2F3132;
+  padding-bottom: 1em;
+  margin-left: 0em;
+  margin-top: -9em;
+}
+
+.IndexPageCardParagraph {
+  font-size: 11px;
+  text-align: -webkit-left;
+  padding-top: 2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*?kfndsnfkdnfndksfn*/
