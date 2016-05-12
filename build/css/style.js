@@ -16,12 +16,19 @@ module.exports = {
     marginLeft: '55%'
   },
   IndexPageLoginButton: {
-    marginLeft: '1px',
-    width: '16em',
-    borderRadius: '20px'
+    backgroundColor: '#009d57',
+    width: '251px',
+    marginLeft: '-11px',
+    borderRadius: '2em'
   },
   IndexPageForgotPassword: {
     fontSize: '11px',
-    marginLeft: '1em'
+    marginLeft: '-2%',
+    color: '#ef3e33'
+  },
+  IndexPageSignup: {
+    fontSize: '11px',
+    color: '#ef3e33',
+    marginLeft: '7em'
   }
 }

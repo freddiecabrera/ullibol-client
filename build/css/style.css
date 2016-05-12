@@ -37,10 +37,10 @@ body {
 }
 
 .IndexPageVerticalLine {
-  margin-top: -48%;
+  margin-top: -51%;
   height: 296px;
   width: 1px;
-  background: red;
+  background: #ef3e33;
   margin-left: 50%;
   margin-bottom: -19em;
 }
@@ -58,6 +58,7 @@ body {
   font-size: 11px;
   text-align: -webkit-left;
   padding-top: 2em;
+  margin-left: 1em;
 }
 
 
