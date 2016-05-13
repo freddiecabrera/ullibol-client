@@ -2,10 +2,12 @@ import { Link } from 'react-router'
 import React, { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
 import { LoginForm } from 'react-stormpath'
-import { loginCard, IndexPageInputFields, IndexPageLoginButton, IndexPageForgotPassword, IndexPageSignup  } from '../../build/css/style.js'
+import { loginCard, IndexPageInputFields, IndexPageLoginButton, IndexPageForgotPassword, IndexPageSignup  } from '../../build/css/IndexPage.js'
 
 const IndexPage = React.createClass({
   render () {
+    console.log(this.props.children);
+    // document.body.style.backgroundColor = "red"
     return (
       <div>
         <LoginForm>
@@ -18,7 +20,7 @@ const IndexPage = React.createClass({
             <div className='card-panel z-depth-1' style={loginCard}>
               <img className='IndexPageMexicoLogo' src='http://bit.ly/1Oo4wPS' />
               <p className='IndexPageCardParagraph'>
-              This is a data visulization app dedicated to the <br />
+              This is a data visualization app dedicated to the <br />
               players of The Mexican Nation Football Team that <br />
               will be attending the Copa America Centenario <br />
               USA 2016. ©2016 Freddie Cabrera.
@@ -27,7 +29,7 @@ const IndexPage = React.createClass({
               <div style={IndexPageInputFields}>
                 <h5 className='IndexPageLoginText'>Login</h5>
                 <div className="input-field">
-                  <input type='text' name="username" ></input>
+                  <input type='text' name="username"></input>
                   <label>Email</label>
                 </div>
                 <div className="input-field">
@@ -56,10 +58,3 @@ const IndexPage = React.createClass({
 })
 
 export default IndexPage
-
-{/*<ol className="lead">
-  <li><Link to="/register">Registration</Link></li>
-  <li><LoginLink /></li>
-  <li><Link to="/forgot">Forgot Password</Link></li>
-  <li><Link to="/profile">Custom Profile Data</Link></li>
-</ol>*/}
