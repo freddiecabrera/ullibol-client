@@ -1,12 +1,12 @@
 import { Link } from 'react-router'
 import React, { PropTypes } from 'react'
 import DocumentTitle from 'react-document-title'
-import { LoginForm } from 'react-stormpath'
+import { LoginForm, LogoutLink } from 'react-stormpath'
 import { loginCard, IndexPageInputFields, IndexPageLoginButton, IndexPageForgotPassword, IndexPageSignup  } from '../../build/css/IndexPage.js'
 
 const IndexPage = React.createClass({
   render () {
-    console.log(this.props.children);
+    console.log(this.props);
     // document.body.style.backgroundColor = "red"
     return (
       <div>

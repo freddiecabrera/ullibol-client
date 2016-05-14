@@ -39,11 +39,11 @@
     "react": "^15.0.2",
     "react-document-title": "^2.0.1",
     "react-dom": "^15.0.2",
-    "react-redux": "^4.0.0",
+    "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
     "react-stormpath": "^1.2.1",
     "react-tap-event-plugin": "^1.0.0",
-    "redux": "^3.0.4",
+    "redux": "^3.5.2",
     "redux-thunk": "^2.0.1",
     "webpack": "^1.13.0"
   },

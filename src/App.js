@@ -7,24 +7,9 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reduxThunk from 'redux-thunk'
 import reducers from './reducers'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-
-injectTapEventPlugin()
-
-const store = createStore(reducers, compose(
-  applyMiddleware(reduxThunk),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-))
-
-ReactStormpath.init({
-  dispatcher: {
-    type: 'redux',
-    store: store
-  }
-})
+ReactStormpath.init()
 
 ReactDOM.render(
-  <Provider store={store}>
     <Router history={browserHistory}>
       <HomeRoute path='/' component={MasterPage}>
       <IndexRoute component={IndexPage} />
@@ -32,11 +17,10 @@ ReactDOM.render(
         <Route path='/register' component={RegisterPage} />
         <Route path='/forgot' component={ResetPasswordPage} />
         <AuthenticatedRoute>
-          <HomeRoute path='/ballerview' component={BallerViews} />
+          <HomeRoute path='/ballerviews' component={BallerViews} />
           <Route path='profile' component={ProfilePage} />
         </AuthenticatedRoute>
       </HomeRoute>
-    </Router>
-  </Provider>,
+    </Router>,
   document.getElementById('app')
 )
