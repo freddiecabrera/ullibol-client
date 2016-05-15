@@ -5,17 +5,20 @@ module.exports = {
     color: 'white'
   },
   Menu: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#f50057',
     position: 'fixed',
     width: '100%',
     height: '100%',
     top: '0px',
     left: '0px',
     zIndex: '1000',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
+  },
+  MenuHolder: {
+    marginTop: '15%'
   },
   MenuLinks: {
-    marginTop: '15%',
-    fontWeight: 600,
+    color: 'white'
   }
 }

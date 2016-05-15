@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, MenuLinks } from '../../build/css/Header'
+import { Menu, MenuLinks, MenuHolder } from '../../build/css/Header'
 import { Link } from 'react-router'
 import { LoginLink, LogoutLink } from 'react-stormpath'
 
@@ -13,21 +13,21 @@ const Header = React.createClass({
     return (
       this.state.authenticated ?
       <div className="card-action" style={Menu}>
-        <div style={MenuLinks}>
-          <Link to='ballerviews'><h1>Home</h1></Link>
-          <Link to='Profile'><h1>Profile</h1></Link>
-          <LogoutLink><h1>Sign Out</h1></LogoutLink>
+        <div style={MenuHolder}>
+          <Link to='ballerviews'><h1 style={MenuLinks}>Home</h1></Link>
+          <Link to='Profile'><h1 style={MenuLinks}>Profile</h1></Link>
+          <LogoutLink><h1 style={MenuLinks}>Sign Out</h1></LogoutLink>
         </div>
-        <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '10%', right: '11%'}}>
-            <i onClick={() => this.setState({ authenticated: false })} className="material-icons" style={{fontSize: '3em'}}>clear</i>
+        <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '10%', right: '11%', zIndex: '0'}}>
+            <i onClick={() => this.setState({ authenticated: false })} className="material-icons" style={{fontSize: '3em', cursor: 'pointer'}}>clear</i>
         </div>
       </div> :
       <div style={{marginBottom: '20%'}}>
-        <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '4%', left: '11%'}}>
+        <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '6%', left: '11%', zIndex: '0'}}>
           <h1 className='HeaderLogo'>Ullibol</h1>
         </div>
         <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '10%', right: '11%'}}>
-          <div onClick={() => this.setState({ authenticated: true })} className="waves-effect waves-light btn btn-floating btn-large red">
+          <div onClick={() => this.setState({ authenticated: true })} className="waves-effect waves-light btn btn-floating btn-large red accent-3">
             <i className="material-icons">menu</i>
           </div>
         </div>
