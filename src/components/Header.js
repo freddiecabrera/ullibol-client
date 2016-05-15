@@ -22,10 +22,8 @@ const Header = React.createClass({
             <i onClick={() => this.setState({ authenticated: false })} className="material-icons" style={{fontSize: '3em', cursor: 'pointer'}}>clear</i>
         </div>
       </div> :
-      <div style={{marginBottom: '20%'}}>
-        <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '6%', left: '11%', zIndex: '0'}}>
-          <h1 className='HeaderLogo'>Ullibol</h1>
-        </div>
+      <div style={{marginBottom: '12%'}}>
+        <h1 style={{marginTop: '6%', marginLeft: '11%', zIndex: '0'}} className='HeaderLogo'>Ullibol</h1>
         <div className="fixed-action-btn horizontal click-to-toggle" style={{top: '10%', right: '11%'}}>
           <div onClick={() => this.setState({ authenticated: true })} className="waves-effect waves-light btn btn-floating btn-large red accent-3">
             <i className="material-icons">menu</i>

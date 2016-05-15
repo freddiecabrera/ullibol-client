@@ -7,7 +7,7 @@ module.exports = {
   },
   MexNatFootTeam: {
     marginRight: '15%',
-    color: '#BDBDBD'
+    color: '#444'
   },
   GridView: {
     color: '#5E44FD'
@@ -21,11 +21,17 @@ module.exports = {
   },
   ViewButton: {
     marginRight: '5%',
-    backgroundColor: '#5E44FD',
-    borderRadius: '2em'
+    borderRadius: '2em',
+    color: '#444',
+    border: '2px solid #5E44FD',
+    borderRadius: '2em',
+    backgroundColor: 'rgba(94, 68, 253, 0)'
   },
   EditButton: {
-    backgroundColor: '#00d8ad',
-    borderRadius: '2em'
+    borderRadius: '2em',
+    color: '#444',
+    border: '2px solid #00d8ad',
+    borderRadius: '2em',
+    backgroundColor: 'rgba(94, 68, 253, 0)'
   }
 }

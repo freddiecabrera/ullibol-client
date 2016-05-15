@@ -9,7 +9,8 @@ const ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootba
 const BallerViews = React.createClass({
   getInitialState () {
     return {
-      allfootballersData: {}
+      allfootballersData: {},
+      cardView: 'grid'
     }
   },
   componentDidMount () {
@@ -47,27 +48,55 @@ const BallerViews = React.createClass({
           </div>
         </div>
 
-        <div className="container-fluid">
+        {/*<div className="container-fluid">
           <div className="row">
-          { myMap(allfootballersData, (player) => {
-            return (
-              <ul key={player.name} className="collection" style={{borderColor: '#0F0E13', marginLeft: '11%', marginRight: '11%'}}>
-                <li className="collection-item avatar z-depth-4" style={{backgroundColor: '#17161D', maxWidth: '100%', overflowX: 'hidden'}}>
-                  <img src={player.url} alt="" className="circle" style={{width: '44px', height: '64px', borderRadius: '2%'}} />
-                  <div style={{color: 'white'}}>
-                    <span className="title">{player.name}</span>
-                    <p>{player.position}</p>
-                  </div>
-                  <div style={ButtonHolder}>
-                    <button style={ViewButton} className='waves-effect waves-light btn'>View</button>
-                    <button style={EditButton} className='waves-effect waves-light btn'>Edit</button>
-                  </div>
-                </li>
-              </ul>
-            )
-          })}
+            { myMap(allfootballersData, (player) => {
+              return (
+                <ul key={player.name} className="collection" style={{borderColor: '#0F0E13', marginLeft: '11%', marginRight: '11%'}}>
+                  <li className="collection-item avatar z-depth-4" style={{backgroundColor: '#17161D', maxWidth: '100%', overflowX: 'hidden'}}>
+                    <img src={player.url} alt="" className="circle" style={{width: '44px', height: '64px', borderRadius: '2%'}} />
+                    <div style={{color: 'white', color: '#444'}}>
+                      <span className="title">{player.name}</span>
+                      <p>{player.position}</p>
+                    </div>
+                    <div style={ButtonHolder}>
+                      <button style={ViewButton} className='waves-effect waves-light btn'>View</button>
+                      <button style={EditButton} className='waves-effect waves-light btn'>Edit</button>
+                    </div>
+                  </li>
+                </ul>
+              )
+            })}
+            </div>
+          </div>*/}
+
+
+          <div className="container-fluid" style={{marginLeft: '5.5%', marginTop: '5%'}}>
+            <div className="row">
+
+              { myMap(allfootballersData, (player) => {
+                  return (
+                    <div className="col s12 m7" style={{width: '19em'}}>
+                        <div className="card" style={{backgroundColor: '#17161D', color: '#444'}}>
+                          <div className="card-image">
+                          <img src={player.url} style={{height: '24em'}} />
+                          </div>
+                            <div className="card-content">
+                              <i className="material-icons">account_circle</i><p style={{marginLeft: '2em', marginTop: '-13%'}}>{player.name}</p>
+                              <i className="material-icons">gps_fixed</i><p style={{marginLeft: '2em', marginTop: '-13%'}}>{player.position}</p>
+                              <div style={{marginLeft: '5%', marginTop: '5%'}}>
+                                <button style={ViewButton} className='waves-effect waves-light btn'>View</button>
+                                <button style={EditButton} className='waves-effect waves-light btn'>Edit</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                  )
+              })}
+            </div>
           </div>
-        </div>
+
+
 
       </div>
     )
