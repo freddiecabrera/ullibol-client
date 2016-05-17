@@ -16,9 +16,16 @@ module.exports = {
     color: 'white'
   },
   MenuHolder: {
-    marginTop: '15%'
+    marginTop: '25%'
   },
   MenuLinks: {
-    color: 'white'
+    color: 'white',
+    fontSize: '3em',
+    margin: '1%'
+  },
+  menuButton: {
+    color: '#444',
+    border: '2px solid #f50057',
+    backgroundColor: 'rgba(94, 68, 253, 0)'
   }
 }
