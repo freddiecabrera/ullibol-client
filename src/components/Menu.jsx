@@ -12,7 +12,7 @@ const Menu = props => (
       <span className='waves-effect waves-light' style={MenuLinks}>Sign Out</span>
     </div>
     <div className='fixed-action-btn horizontal click-to-toggle' style={{top: '10%', right: '11%'}}>
-      <i onClick={props.toggleMenu.bind(null, false)} className="material-icons waves-effect waves-light" style={{fontSize: '3em', cursor: 'pointer'}}>clear</i>
+      <i onClick={props.toggleMenu.bind(null, false)} className='material-icons waves-effect waves-light' style={{fontSize: '3em', cursor: 'pointer'}}>clear</i>
     </div>
   </div>
 )

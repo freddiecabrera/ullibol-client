@@ -1,11 +1,11 @@
 import React from 'react'
-import Header from './Header'
+import Header from '../components/Header'
 import { divider, MexNatFootTeam, gridView, listView } from '../../public/css/BallerViews'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 const { func, bool, array } = React.PropTypes
-import GridView from './GridView'
-import ListView from './ListView'
+import GridView from '../components/GridView'
+import ListView from '../components/ListView'
 
 const BallerViews = React.createClass({
   propTypes: {
