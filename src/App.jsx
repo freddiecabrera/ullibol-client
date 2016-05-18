@@ -10,8 +10,8 @@ import store from './store'
 const myRoutes = props => (
   <Route path='/' component={MasterPage}>
     <IndexRoute component={IndexPage} />
-    <Route path='/ballerviews' component={BallerViews} />
-    <Route path='/ballerview' component={Baller} />
+    <Route path='ballerviews' component={BallerViews} />
+    <Route path='ballerview' component={Baller} />
   </Route>
 )
 

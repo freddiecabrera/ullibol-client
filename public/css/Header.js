@@ -4,7 +4,7 @@ module.exports = {
     fontWeight: 900,
     color: 'white'
   },
-  Menu: {
+  MenuStyle: {
     backgroundColor: '#f50057',
     position: 'fixed',
     width: '100%',

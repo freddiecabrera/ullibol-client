@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux'
-import HelloReducer from './HelloReducer.js'
+import UserInteractionsReducer from './UserInteractionsReducer'
+import PlayersReducer from './PlayersReducer'
+
 const rootReducer = combineReducers({
-  greeting: HelloReducer
+  UserInteractionsReducer,
+  PlayersReducer
 })
 
 export default rootReducer

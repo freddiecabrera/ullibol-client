@@ -19733,10 +19733,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(158);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
 	var _reactRouter = __webpack_require__(160);
 
 	var _MasterPage = __webpack_require__(221);
@@ -19768,8 +19764,8 @@
 	    _reactRouter.Route,
 	    { path: '/', component: _MasterPage2.default },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/ballerviews', component: _BallerViews2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/ballerview', component: _Baller2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerviews', component: _BallerViews2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerview', component: _Baller2.default })
 	  );
 	};
 
@@ -25807,63 +25803,52 @@
 
 	var _BallerViews = __webpack_require__(227);
 
-	var _axios = __webpack_require__(228);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _HelperFunctions = __webpack_require__(245);
-
-	var _reactRouter = __webpack_require__(160);
-
 	var _reactRedux = __webpack_require__(246);
 
 	var _actions = __webpack_require__(265);
 
 	var actions = _interopRequireWildcard(_actions);
 
+	var _GridView = __webpack_require__(275);
+
+	var _GridView2 = _interopRequireDefault(_GridView);
+
+	var _ListView = __webpack_require__(276);
+
+	var _ListView2 = _interopRequireDefault(_ListView);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	var _React$PropTypes = _react2.default.PropTypes;
+	var func = _React$PropTypes.func;
+	var bool = _React$PropTypes.bool;
+	var array = _React$PropTypes.array;
 
-	var ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers';
 
 	var BallerViews = _react2.default.createClass({
 	  displayName: 'BallerViews',
-	  getInitialState: function getInitialState() {
-	    return {
-	      allfootballersData: {},
-	      cardView: true
-	    };
+
+	  propTypes: {
+	    toggleGrid: func,
+	    toggleGridView: bool,
+	    getPlayers: func,
+	    allfootballersData: array
 	  },
 	  componentWillMount: function componentWillMount() {
-	    this.props.sayHello();
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-
-	    _axios2.default.get(ULLIBOL_URL).then(function (response) {
-	      var data = response.data;
-	      var newData = (0, _HelperFunctions.myMap)(data, function (item) {
-	        return JSON.parse(item);
-	      });
-
-	      _this.setState({ allfootballersData: newData });
-	    }).catch(function (error) {
-	      console.log('axios error', error);
-	    });
+	    this.props.getPlayers();
 	  },
 	  render: function render() {
-	    var _this2 = this;
-
-	    document.body.style.backgroundColor = '#0e0e13';
-	    var allfootballersData = this.state.allfootballersData;
-	    console.log(this.props.greeting);
+	    if (typeof document !== 'undefined') {
+	      document.body.style.backgroundColor = '#0e0e13';
+	    }
+	    var allfootballersData = this.props.allfootballersData || [];
+	    console.log(allfootballersData);
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2.default.createElement(_Header2.default, null),
+	      _react2.default.createElement(_Header2.default, this.props),
 	      _react2.default.createElement('div', { className: 'divider', style: _BallerViews.divider }),
 	      _react2.default.createElement(
 	        'div',
@@ -25884,9 +25869,7 @@
 	              { className: 'col s3', style: { marginTop: '1%' } },
 	              _react2.default.createElement(
 	                'a',
-	                { onClick: function onClick() {
-	                    return _this2.setState({ cardView: true });
-	                  }, style: _BallerViews.GridView },
+	                { onClick: this.props.toggleGrid.bind(null, false), style: _BallerViews.gridView },
 	                _react2.default.createElement(
 	                  'i',
 	                  { className: 'material-icons small waves-effect waves-light' },
@@ -25895,9 +25878,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'a',
-	                { onClick: function onClick() {
-	                    return _this2.setState({ cardView: false });
-	                  }, style: _BallerViews.ListView },
+	                { onClick: this.props.toggleGrid.bind(null, true), style: _BallerViews.listView },
 	                _react2.default.createElement(
 	                  'i',
 	                  { className: 'material-icons small waves-effect waves-light' },
@@ -25908,128 +25889,17 @@
 	          )
 	        )
 	      ),
-	      this.state.cardView ? _react2.default.createElement(
-	        'div',
-	        { className: 'container-fluid', style: { marginLeft: '5.5%', marginTop: '3%' } },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          (0, _HelperFunctions.myMap)(allfootballersData, function (player) {
-	            return _react2.default.createElement(
-	              'div',
-	              { key: player.name, playerName: player.name, className: 'col s12 m7', style: { width: '19em' } },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'card', style: { backgroundColor: '#17161D', color: '#444' } },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'card-image' },
-	                  _react2.default.createElement('img', { src: player.url, style: { height: '24em' } })
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'card-content' },
-	                  _react2.default.createElement(
-	                    'i',
-	                    { className: 'material-icons' },
-	                    'account_circle'
-	                  ),
-	                  _react2.default.createElement(
-	                    'p',
-	                    { style: { marginLeft: '2em', marginTop: '-13%' } },
-	                    player.name
-	                  ),
-	                  _react2.default.createElement(
-	                    'i',
-	                    { className: 'material-icons' },
-	                    'gps_fixed'
-	                  ),
-	                  _react2.default.createElement(
-	                    'p',
-	                    { style: { marginLeft: '2em', marginTop: '-13%' } },
-	                    player.position
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { marginLeft: '5%', marginTop: '5%' } },
-	                    _react2.default.createElement(
-	                      _reactRouter.Link,
-	                      { to: '/ballerview', params: { player: player.name } },
-	                      _react2.default.createElement(
-	                        'button',
-	                        { style: _BallerViews.ViewButton, className: 'waves-effect waves-light btn' },
-	                        'View'
-	                      )
-	                    ),
-	                    _react2.default.createElement(
-	                      'button',
-	                      { style: _BallerViews.EditButton, className: 'waves-effect waves-light btn' },
-	                      'Edit'
-	                    )
-	                  )
-	                )
-	              )
-	            );
-	          })
-	        )
-	      ) : _react2.default.createElement(
-	        'div',
-	        { className: 'container-fluid' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          (0, _HelperFunctions.myMap)(allfootballersData, function (player) {
-	            return _react2.default.createElement(
-	              'ul',
-	              { key: player.name, playerName: player.name, className: 'collection', style: { borderColor: '#0F0E13', marginLeft: '11%', marginRight: '11%' } },
-	              _react2.default.createElement(
-	                'li',
-	                { className: 'collection-item avatar z-depth-4', style: { backgroundColor: '#17161D', maxWidth: '100%', overflowX: 'hidden' } },
-	                _react2.default.createElement('img', { src: player.url, className: 'circle', style: { width: '44px', height: '64px', borderRadius: '2%' } }),
-	                _react2.default.createElement(
-	                  'div',
-	                  { style: _defineProperty({ color: 'white' }, 'color', '#444') },
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'title' },
-	                    player.name
-	                  ),
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    player.position
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { style: _BallerViews.ButtonHolder },
-	                  _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/ballerview', params: { player: player.name } },
-	                    _react2.default.createElement(
-	                      'button',
-	                      { style: _BallerViews.ViewButton, className: 'waves-effect waves-light btn' },
-	                      'View'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'button',
-	                    { style: _BallerViews.EditButton, className: 'waves-effect waves-light btn' },
-	                    'Edit'
-	                  )
-	                )
-	              )
-	            );
-	          })
-	        )
-	      )
+	      this.props.toggleGridView ? _react2.default.createElement(_ListView2.default, { allfootballersData: allfootballersData }) : _react2.default.createElement(_GridView2.default, { allfootballersData: allfootballersData })
 	    );
 	  }
 	});
 
 	function mapStateToProps(state) {
 	  return {
-	    greeting: state.greeting
+	    toggle: state.UserInteractionsReducer.toggle,
+	    toggleGridView: state.UserInteractionsReducer.toggleGridView,
+	    allfootballersData: state.PlayersReducer.allfootballersData,
+	    allfootballersDataError: state.PlayersReducer.error
 	  };
 	}
 
@@ -26049,99 +25919,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Header = __webpack_require__(226);
+	var _Menu = __webpack_require__(271);
 
-	var _reactRouter = __webpack_require__(160);
+	var _Menu2 = _interopRequireDefault(_Menu);
+
+	var _MenuButton = __webpack_require__(272);
+
+	var _MenuButton2 = _interopRequireDefault(_MenuButton);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Header = _react2.default.createClass({
-	  displayName: 'Header',
-	  getInitialState: function getInitialState() {
-	    return {
-	      authenticated: false
-	    };
-	  },
-	  render: function render() {
-	    var _this = this;
+	var Header = function Header(props) {
+	  return props.toggle ? _react2.default.createElement(_Menu2.default, props) : _react2.default.createElement(_MenuButton2.default, props);
+	};
 
-	    return this.state.authenticated ? _react2.default.createElement(
-	      'div',
-	      { className: 'card-action', style: _Header.Menu },
-	      _react2.default.createElement(
-	        'div',
-	        { style: _Header.MenuHolder },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'ballerviews' },
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'waves-effect waves-light', style: _Header.MenuLinks },
-	            'Home'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: 'Profile' },
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'waves-effect waves-light', style: _Header.MenuLinks },
-	            'Profile'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
-	          'About'
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
-	          'Contact'
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
-	          'Sign Out'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'fixed-action-btn horizontal click-to-toggle', style: { top: '10%', right: '11%' } },
-	        _react2.default.createElement(
-	          'i',
-	          { onClick: function onClick() {
-	              return _this.setState({ authenticated: false });
-	            }, className: 'material-icons waves-effect waves-light', style: { fontSize: '3em', cursor: 'pointer' } },
-	          'clear'
-	        )
-	      )
-	    ) : _react2.default.createElement(
-	      'div',
-	      { style: { marginBottom: '12%' } },
-	      _react2.default.createElement(
-	        'h1',
-	        { style: { marginTop: '6%', marginLeft: '11%' }, className: 'HeaderLogo' },
-	        'Ullibol'
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'fixed-action-btn horizontal click-to-toggle', style: { top: '10%', right: '11%' } },
-	        _react2.default.createElement(
-	          'div',
-	          { onClick: function onClick() {
-	              return _this.setState({ authenticated: true });
-	            }, className: 'waves-effect waves-light btn btn-floating btn-large', style: _Header.menuButton },
-	          _react2.default.createElement(
-	            'i',
-	            { className: 'material-icons', style: { color: '#444' } },
-	            'menu'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
+	Header.propTypes = {
+	  toggle: _react2.default.PropTypes.bool
+	};
 
 	exports.default = Header;
 
@@ -26157,7 +25951,7 @@
 	    fontWeight: 900,
 	    color: 'white'
 	  },
-	  Menu: {
+	  MenuStyle: {
 	    backgroundColor: '#f50057',
 	    position: 'fixed',
 	    width: '100%',
@@ -26200,10 +25994,10 @@
 	    marginRight: '9%',
 	    color: '#444'
 	  },
-	  GridView: {
+	  gridView: {
 	    color: '#5E44FD'
 	  },
-	  ListView: {
+	  listView: {
 	    color: '#00d8ad'
 	  },
 	  ButtonHolder: {
@@ -28791,12 +28585,52 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.sayHello = sayHello;
+	exports.toggleMenu = toggleMenu;
+	exports.toggleGrid = toggleGrid;
+	exports.getPlayers = getPlayers;
 
 	var _types = __webpack_require__(266);
 
-	function sayHello() {
-	  return { type: _types.HELLO };
+	var _axios = __webpack_require__(228);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _HelperFunctions = __webpack_require__(245);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers';
+
+	function toggleMenu(toggle) {
+	  return {
+	    type: _types.TOGGLE_MENU,
+	    toggle: toggle
+	  };
+	}
+
+	function toggleGrid(toggleGridView) {
+	  return {
+	    type: _types.TOGGLE_GRID,
+	    toggleGridView: toggleGridView
+	  };
+	}
+
+	var UllibolPlayersCall = function UllibolPlayersCall(dispatch) {
+	  _axios2.default.get(ULLIBOL_URL).then(function (response) {
+	    var data = response.data;
+	    var newData = (0, _HelperFunctions.myMap)(data, function (item) {
+	      return JSON.parse(item);
+	    });
+	    return dispatch({ type: _types.GET_PLAYERS, allfootballersData: newData });
+	  }).catch(function (error) {
+	    return dispatch({ type: _types.GET_PLAYERS_ERROR, error: error });
+	  });
+	};
+
+	function getPlayers() {
+	  return function (dispatch) {
+	    UllibolPlayersCall(dispatch);
+	  };
 	}
 
 /***/ },
@@ -28808,7 +28642,10 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var HELLO = exports.HELLO = 'HELLO';
+	var TOGGLE_MENU = exports.TOGGLE_MENU = 'TOGGLE_MENU';
+	var TOGGLE_GRID = exports.TOGGLE_GRID = 'TOGGLE_GRID';
+	var GET_PLAYERS = exports.GET_PLAYERS = 'GET_PLAYERS';
+	var GET_PLAYERS_ERROR = exports.GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR';
 
 /***/ },
 /* 267 */
@@ -28849,10 +28686,12 @@
 	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	// import reduxThunk from 'redux-thunk'
-
 
 	var _redux = __webpack_require__(253);
+
+	var _reduxThunk = __webpack_require__(273);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 	var _reducers = __webpack_require__(269);
 
@@ -28860,11 +28699,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var initialState = {};
-
-	var store = (0, _redux.createStore)(_reducers2.default, initialState, (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : function (f) {
+	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : function (f) {
 	  return f;
-	});
+	}));
 
 	exports.default = store;
 
@@ -28880,14 +28717,19 @@
 
 	var _redux = __webpack_require__(253);
 
-	var _HelloReducer = __webpack_require__(270);
+	var _UserInteractionsReducer = __webpack_require__(270);
 
-	var _HelloReducer2 = _interopRequireDefault(_HelloReducer);
+	var _UserInteractionsReducer2 = _interopRequireDefault(_UserInteractionsReducer);
+
+	var _PlayersReducer = __webpack_require__(274);
+
+	var _PlayersReducer2 = _interopRequireDefault(_PlayersReducer);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
-	  greeting: _HelloReducer2.default
+	  UserInteractionsReducer: _UserInteractionsReducer2.default,
+	  PlayersReducer: _PlayersReducer2.default
 	});
 
 	exports.default = rootReducer;
@@ -28902,20 +28744,393 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _types = __webpack_require__(266);
 
-	var HelloReducer = function HelloReducer() {
+	var UserInteractionsReducer = function UserInteractionsReducer() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case _types.HELLO:
-	      return Object.assign({}, state, { greeting: 'Hello' });
+	    case _types.TOGGLE_MENU:
+	      // console.log('TOGGLE_MENU: ', {...state, toggle: action.toggle}) use this as refrence
+	      return _extends({}, state, { toggle: action.toggle });
+	    case _types.TOGGLE_GRID:
+	      return _extends({}, state, { toggleGridView: action.toggleGridView });
+	    default:
+	      return state;
 	  }
-	  return state;
 	};
 
-	exports.default = HelloReducer;
+	exports.default = UserInteractionsReducer;
+
+	// { menu: false }
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(226);
+
+	var _reactRouter = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Menu = function Menu(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'card-action', style: _Header.MenuStyle },
+	    _react2.default.createElement(
+	      'div',
+	      { style: _Header.MenuHolder },
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'ballerviews' },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
+	          'Home'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: 'Profile' },
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
+	          'Profile'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'waves-effect waves-light', style: _Header.MenuLinks },
+	        'About'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'waves-effect waves-light', style: _Header.MenuLinks },
+	        'Contact'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'waves-effect waves-light', style: _Header.MenuLinks },
+	        'Sign Out'
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'fixed-action-btn horizontal click-to-toggle', style: { top: '10%', right: '11%' } },
+	      _react2.default.createElement(
+	        'i',
+	        { onClick: props.toggleMenu.bind(null, false), className: 'material-icons waves-effect waves-light', style: { fontSize: '3em', cursor: 'pointer' } },
+	        'clear'
+	      )
+	    )
+	  );
+	};
+
+	Menu.propTypes = {
+	  toggleMenu: _react2.default.PropTypes.func
+	};
+
+	exports.default = Menu;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Header = __webpack_require__(226);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MenuButton = function MenuButton(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { style: { marginBottom: '12%' } },
+	    _react2.default.createElement(
+	      'h1',
+	      { style: { marginTop: '6%', marginLeft: '11%' }, className: 'HeaderLogo' },
+	      'Ullibol'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'fixed-action-btn horizontal click-to-toggle', style: { top: '10%', right: '11%' } },
+	      _react2.default.createElement(
+	        'div',
+	        { onClick: props.toggleMenu.bind(null, true), className: 'waves-effect waves-light btn btn-floating btn-large', style: _Header.menuButton },
+	        _react2.default.createElement(
+	          'i',
+	          { className: 'material-icons', style: { color: '#444' } },
+	          'menu'
+	        )
+	      )
+	    )
+	  );
+	};
+
+	MenuButton.propTypes = {
+	  toggleMenu: _react2.default.PropTypes.func
+	};
+
+	exports.default = MenuButton;
+
+/***/ },
+/* 273 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _types = __webpack_require__(266);
+
+	var UserInteractionsReducer = function UserInteractionsReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _types.GET_PLAYERS:
+	      // console.log('TOGGLE_MENU: ', {...state, toggle: action.toggle}) use this as refrence
+	      return _extends({}, state, { allfootballersData: action.allfootballersData });
+	    case _types.GET_PLAYERS_ERROR:
+	      return _extends({}, state, { error: action.error });
+	    default:
+	      return state;
+	  }
+	};
+
+	exports.default = UserInteractionsReducer;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _HelperFunctions = __webpack_require__(245);
+
+	var _BallerViews = __webpack_require__(227);
+
+	var _reactRouter = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var GridView = function GridView(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container-fluid', style: { marginLeft: '5.5%', marginTop: '3%' } },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      (0, _HelperFunctions.myMap)(props.allfootballersData, function (player) {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: player.name, playerName: player.name, className: 'col s12 m7', style: { width: '19em' } },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'card', style: { backgroundColor: '#17161D', color: '#444' } },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'card-image' },
+	              _react2.default.createElement('img', { src: player.url, style: { height: '24em' } })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'card-content' },
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                'account_circle'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { style: { marginLeft: '2em', marginTop: '-13%' } },
+	                player.name
+	              ),
+	              _react2.default.createElement(
+	                'i',
+	                { className: 'material-icons' },
+	                'gps_fixed'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { style: { marginLeft: '2em', marginTop: '-13%' } },
+	                player.position
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { style: { marginLeft: '5%', marginTop: '5%' } },
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/ballerview', params: { player: player.name } },
+	                  _react2.default.createElement(
+	                    'button',
+	                    { style: _BallerViews.ViewButton, className: 'waves-effect waves-light btn' },
+	                    'View'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { style: _BallerViews.EditButton, className: 'waves-effect waves-light btn' },
+	                  'Edit'
+	                )
+	              )
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+
+	GridView.propTypes = {
+	  allfootballersData: _react2.default.PropTypes.array
+	};
+
+	exports.default = GridView;
+
+/***/ },
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
+
+	var _HelperFunctions = __webpack_require__(245);
+
+	var _BallerViews = __webpack_require__(227);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ListView = function ListView(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'container-fluid' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      (0, _HelperFunctions.myMap)(props.allfootballersData, function (player) {
+	        return _react2.default.createElement(
+	          'ul',
+	          { key: player.name, playerName: player.name, className: 'collection', style: { borderColor: '#0F0E13', marginLeft: '11%', marginRight: '11%' } },
+	          _react2.default.createElement(
+	            'li',
+	            { className: 'collection-item avatar z-depth-4', style: { backgroundColor: '#17161D', maxWidth: '100%', overflowX: 'hidden' } },
+	            _react2.default.createElement('img', { src: player.url, className: 'circle', style: { width: '44px', height: '64px', borderRadius: '2%' } }),
+	            _react2.default.createElement(
+	              'div',
+	              { style: { color: '#444' } },
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'title' },
+	                player.name
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                player.position
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: _BallerViews.ButtonHolder },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/ballerview', params: { player: player.name } },
+	                _react2.default.createElement(
+	                  'button',
+	                  { style: _BallerViews.ViewButton, className: 'waves-effect waves-light btn' },
+	                  'View'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { style: _BallerViews.EditButton, className: 'waves-effect waves-light btn' },
+	                'Edit'
+	              )
+	            )
+	          )
+	        );
+	      })
+	    )
+	  );
+	};
+
+	ListView.propTypes = {
+	  allfootballersData: _react2.default.PropTypes.array
+	};
+
+	exports.default = ListView;
 
 /***/ }
 /******/ ]);

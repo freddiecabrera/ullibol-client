@@ -1,107 +1,48 @@
 import React from 'react'
 import Header from './Header'
-import { divider, MexNatFootTeam, GridView, ListView, ButtonHolder, ViewButton, EditButton } from '../../public/css/BallerViews'
-import axios from 'axios'
-import { myMap } from '../HelperFunctions'
-import { Link } from 'react-router'
+import { divider, MexNatFootTeam, gridView, listView } from '../../public/css/BallerViews'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-const { func } = React.PropTypes
-
-const ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers'
+const { func, bool, array } = React.PropTypes
+import GridView from './GridView'
+import ListView from './ListView'
 
 const BallerViews = React.createClass({
   propTypes: {
-    sayHello: func
-  },
-  getInitialState () {
-    return {
-      allfootballersData: {},
-      cardView: true
-    }
+    toggleGrid: func,
+    toggleGridView: bool,
+    getPlayers: func,
+    allfootballersData: array
   },
   componentWillMount () {
-    this.props.sayHello()
-  },
-  componentDidMount () {
-    axios.get(ULLIBOL_URL)
-      .then(response => {
-        const data = response.data
-        const newData = myMap(data, item => {
-          return JSON.parse(item)
-        })
-
-        this.setState({ allfootballersData: newData })
-      })
-      .catch(error => {
-        console.log('axios error', error)
-      })
+    this.props.getPlayers()
   },
   render () {
-    document.body.style.backgroundColor = '#0e0e13'
-    const allfootballersData = this.state.allfootballersData
+    if (typeof document !== 'undefined') {
+      document.body.style.backgroundColor = '#0e0e13'
+    }
+    const allfootballersData = this.props.allfootballersData || []
+    console.log(allfootballersData)
     return (
       <div>
-
-        <Header />
-
+        <Header { ...this.props } />
         <div className='divider' style={divider}></div>
         <div className='container-fluid'>
           <div className='row' style={{ marginTop: '3%' }}>
             <div className='col s12' style={{ marginLeft: '10%' }}>
               <h5 className='col s7' style={MexNatFootTeam}>Mexican National Football Team</h5>
               <div className='col s3' style={{ marginTop: '1%' }}>
-                <a onClick={() => this.setState({cardView: true})} style={GridView}><i className='material-icons small waves-effect waves-light'>view_module</i></a>
-                <a onClick={() => this.setState({cardView: false})} style={ListView}><i className='material-icons small waves-effect waves-light'>view_headline</i></a>
+                <a onClick={this.props.toggleGrid.bind(null, false)} style={gridView}>
+                  <i className='material-icons small waves-effect waves-light'>view_module</i>
+                </a>
+                <a onClick={this.props.toggleGrid.bind(null, true)} style={listView}>
+                  <i className='material-icons small waves-effect waves-light'>view_headline</i>
+                </a>
               </div>
             </div>
           </div>
         </div>
-        {this.state.cardView ? <div className='container-fluid' style={{marginLeft: '5.5%', marginTop: '3%'}}>
-          <div className='row'>
-            { myMap(allfootballersData, (player) => {
-                return (
-                  <div key={player.name} playerName={player.name} className='col s12 m7' style={{width: '19em'}}>
-                      <div className='card' style={{backgroundColor: '#17161D', color: '#444'}}>
-                        <div className='card-image'>
-                        <img src={player.url} style={{height: '24em'}} />
-                        </div>
-                          <div className='card-content'>
-                            <i className='material-icons'>account_circle</i><p style={{marginLeft: '2em', marginTop: '-13%'}}>{player.name}</p>
-                            <i className='material-icons'>gps_fixed</i><p style={{marginLeft: '2em', marginTop: '-13%'}}>{player.position}</p>
-                            <div style={{marginLeft: '5%', marginTop: '5%'}}>
-                              <Link to={`/ballerview`} params={{player: player.name}}><button style={ViewButton} className='waves-effect waves-light btn'>View</button></Link>
-                              <button style={EditButton} className='waves-effect waves-light btn'>Edit</button>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-                )
-            })}
-          </div>
-        </div>
-        :
-        <div className='container-fluid'>
-          <div className='row'>
-            { myMap(allfootballersData, (player) => {
-              return (
-                <ul key={player.name} playerName={player.name} className='collection' style={{borderColor: '#0F0E13', marginLeft: '11%', marginRight: '11%'}}>
-                  <li className='collection-item avatar z-depth-4' style={{backgroundColor: '#17161D', maxWidth: '100%', overflowX: 'hidden'}}>
-                    <img src={player.url} className='circle' style={{width: '44px', height: '64px', borderRadius: '2%'}} />
-                    <div style={{color: 'white', color: '#444'}}>
-                      <span className='title'>{player.name}</span>
-                      <p>{player.position}</p>
-                    </div>
-                    <div style={ButtonHolder}>
-                    <Link to={`/ballerview`} params={{ player: player.name }}><button style={ViewButton} className='waves-effect waves-light btn'>View</button></Link>
-                      <button style={EditButton} className='waves-effect waves-light btn'>Edit</button>
-                    </div>
-                  </li>
-                </ul>
-              )
-            })}
-            </div>
-          </div>}
+        {this.props.toggleGridView ? <ListView allfootballersData={allfootballersData} /> : <GridView allfootballersData={allfootballersData} />}
 
       </div>
     )
@@ -110,7 +51,10 @@ const BallerViews = React.createClass({
 
 function mapStateToProps (state) {
   return {
-    greeting: state.greeting
+    toggle: state.UserInteractionsReducer.toggle,
+    toggleGridView: state.UserInteractionsReducer.toggleGridView,
+    allfootballersData: state.PlayersReducer.allfootballersData,
+    allfootballersDataError: state.PlayersReducer.error
   }
 }
 

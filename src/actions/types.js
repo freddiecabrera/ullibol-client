@@ -1,1 +1,4 @@
-export const HELLO = 'HELLO'
+export const TOGGLE_MENU = 'TOGGLE_MENU'
+export const TOGGLE_GRID = 'TOGGLE_GRID'
+export const GET_PLAYERS = 'GET_PLAYERS'
+export const GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR'

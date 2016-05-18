@@ -9,10 +9,10 @@ module.exports = {
     marginRight: '9%',
     color: '#444'
   },
-  GridView: {
+  gridView: {
     color: '#5E44FD'
   },
-  ListView: {
+  listView: {
     color: '#00d8ad'
   },
   ButtonHolder: {
