@@ -3,7 +3,7 @@ import { IndexRoute, Router, Route, browserHistory } from 'react-router'
 import MasterPage from './components/MasterPage'
 import IndexPage from './components/IndexPage'
 import BallerViews from './containers/BallerViews'
-import Baller from './components/Baller'
+import Baller from './containers/Baller'
 import { Provider } from 'react-redux'
 import store from './store'
 
