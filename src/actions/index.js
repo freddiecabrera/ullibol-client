@@ -1,4 +1,4 @@
-import { TOGGLE_MENU, TOGGLE_GRID, GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA } from './types'
+import { TOGGLE_MENU, TOGGLE_GRID, GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA, FETCHING_PLAYER } from './types'
 import axios from 'axios'
 import { myMap } from '../HelperFunctions'
 const ALL_FOOTBALLERS_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers'
@@ -36,18 +36,33 @@ export function getPlayers () {
   }
 }
 
-const UllibolPlayerDataCall = (dispatch, url) => {
-  axios.get(url)
-    .then(response => {
-      const data = response.data
-      dispatch({ type: GET_PLAYER_DATA, playerData: data })
-    })
-    .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
-}
+// const UllibolPlayerDataCall = (dispatch, url) => {
+//   axios.get(url)
+//     .then(response => {
+//       const data = response.data
+//       console.log('data from the inside', data)
+//       return dispatch({ type: GET_PLAYER_DATA, playerData: data })
+//     })
+//     .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
+// }
 
 export function getPlayerData (player) {
-  const url = PLAYER_DATA_ULLIBOL_URL + player
+  const request = axios.get('http://demo7284574.mockable.io/getplayer')
   return function (dispatch) {
-    return UllibolPlayerDataCall(dispatch, url)
+    request.then(({data}) => {
+      dispatch({ type: GET_PLAYER_DATA, playerData: data })
+    })
   }
 }
+
+// export function fetchPlayer (player) {
+//   return function (dispatch) {
+//     console.log('fetchPlayer was hit with ', player) // 1
+//     dispatch({ type: FETCHING_PLAYER, playerData: 'fetching' })
+//     console.log('dispatched an action from fetchPlayer') // 2
+//     // getPlayerData(player) // 3
+//     return axios.get('http://demo7284574.mockable.io/getplayer')
+//
+//
+//   }
+// }

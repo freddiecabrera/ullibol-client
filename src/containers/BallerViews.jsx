@@ -22,7 +22,7 @@ const BallerViews = React.createClass({
       document.body.style.backgroundColor = '#0e0e13'
     }
     const allfootballersData = this.props.allfootballersData || []
-    console.log(allfootballersData)
+    console.log('allfootballersData: ', allfootballersData)
     return (
       <div>
         <Header { ...this.props } />
@@ -43,7 +43,6 @@ const BallerViews = React.createClass({
           </div>
         </div>
         {this.props.toggleGridView ? <ListView allfootballersData={allfootballersData} /> : <GridView allfootballersData={allfootballersData} />}
-
       </div>
     )
   }

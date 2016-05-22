@@ -2,20 +2,23 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 const { func, object } = React.PropTypes
+import Chart from '../components/Chart'
 
 const Baller = React.createClass({
   propTypes: {
     getPlayerData: func,
-    params: object
+    params: object,
+    playerData: object
   },
   componentWillMount () {
-    const player = encodeURI(this.props.params.player)
-    this.props.getPlayerData(player)
+    // const player = encodeURI(this.props.params.player)
+    this.props.getPlayerData('andres guardado')
   },
   render () {
-    console.log(this.props.playerData)
+    const playerData = this.props.playerData || []
+    console.log('Player Data: ', playerData)
     return (
-      <div>Hello</div>
+      <div><Chart playerData={playerData} /></div>
     )
   }
 })

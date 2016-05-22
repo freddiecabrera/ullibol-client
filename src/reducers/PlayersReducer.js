@@ -1,4 +1,4 @@
-import { GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA } from '../actions/types'
+import { GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA, FETCHING_PLAYER } from '../actions/types'
 
 const PlayersReducer = (state = {}, action) => {
   switch (action.type) {
