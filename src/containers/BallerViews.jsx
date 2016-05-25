@@ -6,6 +6,7 @@ import * as actions from '../actions'
 const { func, bool, array } = React.PropTypes
 import GridView from '../components/GridView'
 import ListView from '../components/ListView'
+import Loader from '../components/Loader'
 
 const BallerViews = React.createClass({
   propTypes: {
@@ -24,6 +25,7 @@ const BallerViews = React.createClass({
     const allfootballersData = this.props.allfootballersData || []
     console.log('allfootballersData: ', allfootballersData)
     return (
+      this.props.fetching ? <Loader /> :
       <div>
         <Header { ...this.props } />
         <div className='divider' style={divider}></div>
@@ -53,7 +55,8 @@ function mapStateToProps (state) {
     toggle: state.UserInteractionsReducer.toggle,
     toggleGridView: state.UserInteractionsReducer.toggleGridView,
     allfootballersData: state.PlayersReducer.allfootballersData,
-    allfootballersDataError: state.PlayersReducer.error
+    allfootballersDataError: state.PlayersReducer.error,
+    fetching: state.PlayersReducer.fetching
   }
 }
 

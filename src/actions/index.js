@@ -4,6 +4,7 @@ import { myMap } from '../HelperFunctions'
 const ALL_FOOTBALLERS_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers'
 const PLAYER_DATA_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/footballers/'
 
+// Toggle Menu
 export function toggleMenu (toggle) {
   return {
     type: TOGGLE_MENU,
@@ -11,6 +12,7 @@ export function toggleMenu (toggle) {
   }
 }
 
+// Toggle Grid
 export function toggleGrid (toggleGridView) {
   return {
     type: TOGGLE_GRID,
@@ -18,6 +20,7 @@ export function toggleGrid (toggleGridView) {
   }
 }
 
+// Get all players
 const UllibolPlayersCall = dispatch => {
   axios.get(ALL_FOOTBALLERS_ULLIBOL_URL)
     .then(response => {
@@ -25,6 +28,7 @@ const UllibolPlayersCall = dispatch => {
       const newData = myMap(data, item => {
         return JSON.parse(item)
       })
+      dispatch({ type: FETCHING_PLAYER, fetching: false})
       return dispatch({ type: GET_PLAYERS, allfootballersData: newData })
     })
     .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
@@ -32,37 +36,27 @@ const UllibolPlayersCall = dispatch => {
 
 export function getPlayers () {
   return function (dispatch) {
+    dispatch({ type: FETCHING_PLAYER, fetching: true })
     UllibolPlayersCall(dispatch)
   }
 }
 
-// const UllibolPlayerDataCall = (dispatch, url) => {
-//   axios.get(url)
-//     .then(response => {
-//       const data = response.data
-//       console.log('data from the inside', data)
-//       return dispatch({ type: GET_PLAYER_DATA, playerData: data })
-//     })
-//     .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
-// }
-
-export function getPlayerData (player) {
-  const request = axios.get('http://demo7284574.mockable.io/getplayer')
-  return function (dispatch) {
-    request.then(({data}) => {
-      dispatch({ type: GET_PLAYER_DATA, playerData: data })
+// Get single player data
+const UllibolPlayerDataCall = (dispatch, url) => {
+  console.log('hit')
+  axios.get(url)
+    .then(response => {
+      const data = response.data
+      dispatch({ type: FETCHING_PLAYER, fetching: false})
+      return dispatch({ type: GET_PLAYER_DATA, playerData: data })
     })
-  }
+    .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
 }
 
-// export function fetchPlayer (player) {
-//   return function (dispatch) {
-//     console.log('fetchPlayer was hit with ', player) // 1
-//     dispatch({ type: FETCHING_PLAYER, playerData: 'fetching' })
-//     console.log('dispatched an action from fetchPlayer') // 2
-//     // getPlayerData(player) // 3
-//     return axios.get('http://demo7284574.mockable.io/getplayer')
-//
-//
-//   }
-// }
+export function getPlayerData (player) {
+  const url = 'http://demo7284574.mockable.io/getplayer'
+  return function (dispatch) {
+    dispatch({ type: FETCHING_PLAYER, fetching: true })
+    UllibolPlayerDataCall(dispatch, url)
+  }
+}

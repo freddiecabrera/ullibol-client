@@ -1,8 +1,8 @@
 import React from 'react'
+import Loader from '../components/Loader'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 const { func, object } = React.PropTypes
-import Chart from '../components/Chart'
 
 const Baller = React.createClass({
   propTypes: {
@@ -15,10 +15,14 @@ const Baller = React.createClass({
     this.props.getPlayerData('andres guardado')
   },
   render () {
-    const playerData = this.props.playerData || []
-    console.log('Player Data: ', playerData)
+    const playerData = this.props.playerData
+    const fetching = this.props.fetching
+    console.log(this.props.fetching)
+    console.log(this.props.playerData)
     return (
-      <div><Chart playerData={playerData} /></div>
+      <div>
+        {fetching ? <Loader /> : <h1>Hello</h1>}
+      </div>
     )
   }
 })
@@ -26,7 +30,8 @@ const Baller = React.createClass({
 function mapStateToProps (state) {
   return {
     playerData: state.PlayersReducer.playerData,
-    error: state.PlayersReducer.error
+    error: state.PlayersReducer.error,
+    fetching: state.PlayersReducer.fetching
   }
 }
 

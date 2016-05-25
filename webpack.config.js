@@ -9,6 +9,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
+    
   },
   stats: {
     colors: true,
