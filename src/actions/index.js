@@ -1,4 +1,13 @@
-import { TOGGLE_MENU, TOGGLE_GRID, GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA, FETCHING_PLAYER } from './types'
+import {
+  TOGGLE_MENU,
+  TOGGLE_GRID,
+  GET_PLAYERS,
+  GET_PLAYERS_ERROR,
+  GET_PLAYER_DATA,
+  FETCHING_PLAYER,
+  DATA_TYPE
+} from './types'
+
 import axios from 'axios'
 import { myMap } from '../HelperFunctions'
 const ALL_FOOTBALLERS_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers'
@@ -58,5 +67,13 @@ export function getPlayerData (player) {
   return function (dispatch) {
     dispatch({ type: FETCHING_PLAYER, fetching: true })
     UllibolPlayerDataCall(dispatch, url)
+  }
+}
+
+// Check data type
+export function getDataType (dataType) {
+  return {
+    type: DATA_TYPE,
+    getDataType: dataType
   }
 }

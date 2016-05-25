@@ -1,4 +1,10 @@
-import { GET_PLAYERS, GET_PLAYERS_ERROR, GET_PLAYER_DATA, FETCHING_PLAYER } from '../actions/types'
+import {
+  GET_PLAYERS,
+  GET_PLAYERS_ERROR,
+  GET_PLAYER_DATA,
+  FETCHING_PLAYER,
+  DATA_TYPE
+} from '../actions/types'
 
 const PlayersReducer = (state = {}, action) => {
   switch (action.type) {
@@ -10,6 +16,8 @@ const PlayersReducer = (state = {}, action) => {
       return { ...state, playerData: action.playerData }
     case FETCHING_PLAYER:
       return { ...state, fetching: action.fetching }
+    case DATA_TYPE:
+      return { ...state, dataType: action.getDataType}
     default:
       return state
   }
