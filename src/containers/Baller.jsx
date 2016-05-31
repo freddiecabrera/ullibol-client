@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { myEach, myMap } from '../HelperFunctions'
 import BallerInfoHeader from '../components/BallerInfoHeader'
+import ControlPanel from '../components/ControlPanel'
 
 const { func, object, bool, string } = React.PropTypes
 
@@ -71,11 +72,8 @@ const Baller = React.createClass({
         <div className='row'>
           <div className='col s12'>
             <div className='col s12'>
-              <ReactHighcharts config={config} />
-              <div className='col s12' style={{backgroundColor: '#FECD06', height: '5em', width: '9em', marginTop: '1em'}}>
-                <span>PERFORMANCE SCORE BY MATCH</span>
-                <p>900</p>
-              </div>
+              {this.props.playerData ? <ControlPanel playerData={this.props.playerData} /> : null}
+              <div className='col s7' style={{marginLeft: '-3%'}}><ReactHighcharts config={config} /></div>
             </div>
           </div>
         </div>

@@ -29064,6 +29064,10 @@
 
 	var _BallerInfoHeader2 = _interopRequireDefault(_BallerInfoHeader);
 
+	var _ControlPanel = __webpack_require__(282);
+
+	var _ControlPanel2 = _interopRequireDefault(_ControlPanel);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29149,20 +29153,11 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col s12' },
-	            _react2.default.createElement(_reactHighcharts2.default, { config: config }),
+	            this.props.playerData ? _react2.default.createElement(_ControlPanel2.default, { playerData: this.props.playerData }) : null,
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'col s12', style: { backgroundColor: '#FECD06', height: '5em', width: '9em', marginTop: '1em' } },
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'PERFORMANCE SCORE BY MATCH'
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                '900'
-	              )
+	              { className: 'col s7', style: { marginLeft: '-3%' } },
+	              _react2.default.createElement(_reactHighcharts2.default, { config: config })
 	            )
 	          )
 	        )
@@ -33308,7 +33303,7 @@
 	      _react2.default.createElement(
 	        'li',
 	        { className: 'collection-item avatar', style: { backgroundColor: '#5E44FD', border: 'none', height: '20em' } },
-	        _react2.default.createElement('img', { src: props.playerData.picture, className: 'circle', style: { height: '20em', width: '20em', marginLeft: '60em', marginTop: '1em' } }),
+	        _react2.default.createElement('img', { src: props.playerData.picture, className: 'circle z-depth-5', style: { height: '20em', width: '20em', marginLeft: '60em', marginTop: '1em' } }),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row col s12', style: { marginTop: '3em' } },
@@ -33424,6 +33419,20 @@
 	              null,
 	              props.playerData.position
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'position col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'CURRENT CLUB'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.currentClub
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -33444,6 +33453,161 @@
 	  playerData: _react2.default.PropTypes.object.isRequired
 	};
 	exports.default = BallerInfoHeader;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ControlPanel = function ControlPanel(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'col s5', style: { marginLeft: '1%' } },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'PERFORMANCE SCORE'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.performanceScore
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'TOTAL APPEARANCES'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.totalAppearances
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'TOTAL GOALS SCORED'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.totalGoalsScored
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'SHOT ACCURACY'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.shotAccuracy
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'AVG. PASS ACCURACY'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.avgPassAccuracy
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'AVG. PASS LENGTH'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.avgPassLength
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'AVG. DUELS WON'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.duelsWon
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'TOTAL CHANCES CREATED'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.totalChancesCreated
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'waves-effect waves-light col s4', style: { backgroundColor: '#FECD06', height: '130px', width: '9em', marginTop: '1em', margin: '2px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '8px', textAlign: 'center', marginTop: '18%' } },
+	        'DEFENSIVE ACTIONS'
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        { style: { fontSize: '2em', textAlign: 'center', marginTop: '0%' } },
+	        props.playerData.defensiveActions
+	      )
+	    )
+	  );
+	};
+
+	ControlPanel.propTypes = {
+	  playerData: _react2.default.PropTypes.object.isRequired
+	};
+
+	exports.default = ControlPanel;
 
 /***/ }
 /******/ ]);
