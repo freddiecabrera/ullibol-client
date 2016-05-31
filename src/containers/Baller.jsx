@@ -4,6 +4,8 @@ import Loader from '../components/Loader'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { myEach, myMap } from '../HelperFunctions'
+import BallerInfoHeader from '../components/BallerInfoHeader'
+
 const { func, object, bool, string } = React.PropTypes
 
 const Baller = React.createClass({
@@ -26,37 +28,57 @@ const Baller = React.createClass({
     }
     let config = {
       chart: {
-        backgroundColor: '#0e0e13',
-        type: 'areaspline'
+        backgroundColor: '#14141F',
+        type: 'line'
       },
       title: {
         text: 'Performance Score By Match'
       },
-      xAxis: {},
+      xAxis: {
+        categories: ['8.11.15', '8.16.15', '8.22.15', '8.30.15', '9.12.15', '10.4.15', '10.17.15', '10.24.15', '10.31.15', '11.8.15', '11.21.15', '11.29.15', '12.5.15', '12.12.15', '12.19.15', '1.17.16', '1.24.16', '1.27.16', '1.30.16', '2.27.16', '3.5.16', '3.12.16', '3.20.16', '5.1.16', '5.8.16']
+      },
+      yAxis: {
+        gridLineWidth: 0,
+        minorGridLineWidth: 0
+      },
+      labels: {
+        enabled: false
+      },
       plotOptions: {
-             areaspline: {
-                 fillOpacity: 0.1
-             }
-         }
+        areaspline: {
+          fillOpacity: 0.1
+        }
+      }
     }
     const playerData = this.props.playerData
     const fetching = this.props.fetching
     let dataType
     if (playerData) {
       dataType = playerData[this.props.dataType]
-      config.xAxis.categories = dataType.attacking.map(item => item.date)
       config.series = myMap(dataType, (value, key) => {
-        let score = myMap(value, item => JSON.parse(item.score))
+        let score = value.map(item => JSON.parse(item.score))
         return { name: key, data: score, color: 'green' }
       })
+      config.series[0].color = '#5E44FD'
+      config.series[1].color = '#FECD06'
+      config.series[2].color = '#00D8AD'
+      config.series[3].color = '#F50057'
     }
-    // console.log('playerData', playerData)
-    // console.log('dataType:', dataType)
-    // console.log('config', config);
-    console.log('config', config)
+    console.log(this.props.playerData)
     return (
-      <div>
-        {fetching ? <Loader /> : <ReactHighcharts config={config} />}
+      fetching ? <Loader /> : <div>
+        {this.props.playerData ? <BallerInfoHeader playerData={this.props.playerData} /> : null}
+        <div className='row'>
+          <div className='col s12'>
+            <div className='col s12'>
+              <ReactHighcharts config={config} />
+              <div className='col s12' style={{backgroundColor: '#FECD06', height: '5em', width: '9em', marginTop: '1em'}}>
+                <span>PERFORMANCE SCORE BY MATCH</span>
+                <p>900</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

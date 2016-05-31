@@ -25625,7 +25625,7 @@
 	var IndexPage = _react2.default.createClass({
 	  displayName: 'IndexPage',
 	  render: function render() {
-	    // document.body.style.backgroundColor = "red"
+	    // document.body.style.backgroundColor = 'red'
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -25838,7 +25838,8 @@
 	    toggleGrid: func,
 	    toggleGridView: bool,
 	    getPlayers: func,
-	    allfootballersData: array
+	    allfootballersData: array,
+	    fetching: bool
 	  },
 	  componentWillMount: function componentWillMount() {
 	    this.props.getPlayers();
@@ -27696,7 +27697,6 @@
 
 	// Get single player data
 	var UllibolPlayerDataCall = function UllibolPlayerDataCall(dispatch, url) {
-	  console.log('hit');
 	  _axios2.default.get(url).then(function (response) {
 	    var data = response.data;
 	    dispatch({ type: _types.FETCHING_PLAYER, fetching: false });
@@ -28999,7 +28999,7 @@
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29013,17 +29013,17 @@
 
 	var Loader = function Loader() {
 	  return _react2.default.createElement(
-	    "div",
-	    { id: "loader" },
+	    'div',
+	    { id: 'loader' },
 	    _react2.default.createElement(
-	      "ul",
+	      'ul',
 	      null,
-	      _react2.default.createElement("li", null),
-	      _react2.default.createElement("li", null),
-	      _react2.default.createElement("li", null),
-	      _react2.default.createElement("li", null),
-	      _react2.default.createElement("li", null),
-	      _react2.default.createElement("li", null)
+	      _react2.default.createElement('li', null),
+	      _react2.default.createElement('li', null),
+	      _react2.default.createElement('li', null),
+	      _react2.default.createElement('li', null),
+	      _react2.default.createElement('li', null),
+	      _react2.default.createElement('li', null)
 	    )
 	  );
 	};
@@ -29060,6 +29060,10 @@
 
 	var _HelperFunctions = __webpack_require__(268);
 
+	var _BallerInfoHeader = __webpack_require__(281);
+
+	var _BallerInfoHeader2 = _interopRequireDefault(_BallerInfoHeader);
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -29093,13 +29097,22 @@
 	    }
 	    var config = {
 	      chart: {
-	        backgroundColor: '#0e0e13',
-	        type: 'areaspline'
+	        backgroundColor: '#14141F',
+	        type: 'line'
 	      },
 	      title: {
 	        text: 'Performance Score By Match'
 	      },
-	      xAxis: {},
+	      xAxis: {
+	        categories: ['8.11.15', '8.16.15', '8.22.15', '8.30.15', '9.12.15', '10.4.15', '10.17.15', '10.24.15', '10.31.15', '11.8.15', '11.21.15', '11.29.15', '12.5.15', '12.12.15', '12.19.15', '1.17.16', '1.24.16', '1.27.16', '1.30.16', '2.27.16', '3.5.16', '3.12.16', '3.20.16', '5.1.16', '5.8.16']
+	      },
+	      yAxis: {
+	        gridLineWidth: 0,
+	        minorGridLineWidth: 0
+	      },
+	      labels: {
+	        enabled: false
+	      },
 	      plotOptions: {
 	        areaspline: {
 	          fillOpacity: 0.1
@@ -29111,24 +29124,49 @@
 	    var dataType = void 0;
 	    if (playerData) {
 	      dataType = playerData[this.props.dataType];
-	      config.xAxis.categories = dataType.attacking.map(function (item) {
-	        return item.date;
-	      });
 	      config.series = (0, _HelperFunctions.myMap)(dataType, function (value, key) {
-	        var score = (0, _HelperFunctions.myMap)(value, function (item) {
+	        var score = value.map(function (item) {
 	          return JSON.parse(item.score);
 	        });
 	        return { name: key, data: score, color: 'green' };
 	      });
+	      config.series[0].color = '#5E44FD';
+	      config.series[1].color = '#FECD06';
+	      config.series[2].color = '#00D8AD';
+	      config.series[3].color = '#F50057';
 	    }
-	    // console.log('playerData', playerData)
-	    // console.log('dataType:', dataType)
-	    // console.log('config', config);
-	    console.log('config', config);
-	    return _react2.default.createElement(
+	    console.log(this.props.playerData);
+	    return fetching ? _react2.default.createElement(_Loader2.default, null) : _react2.default.createElement(
 	      'div',
 	      null,
-	      fetching ? _react2.default.createElement(_Loader2.default, null) : _react2.default.createElement(_reactHighcharts2.default, { config: config })
+	      this.props.playerData ? _react2.default.createElement(_BallerInfoHeader2.default, { playerData: this.props.playerData }) : null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col s12' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col s12' },
+	            _react2.default.createElement(_reactHighcharts2.default, { config: config }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col s12', style: { backgroundColor: '#FECD06', height: '5em', width: '9em', marginTop: '1em' } },
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'PERFORMANCE SCORE BY MATCH'
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                '900'
+	              )
+	            )
+	          )
+	        )
+	      )
 	    );
 	  }
 	});
@@ -33243,6 +33281,169 @@
 	};
 
 	exports.default = PlayersReducer;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var BallerInfoHeader = function BallerInfoHeader(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { style: { color: 'white' } },
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'collection', style: { border: 'none', minHeight: '27em', marginBottom: '-6%', marginTop: '-1%' } },
+	      _react2.default.createElement(
+	        'li',
+	        { className: 'collection-item avatar', style: { backgroundColor: '#5E44FD', border: 'none', height: '20em' } },
+	        _react2.default.createElement('img', { src: props.playerData.picture, className: 'circle', style: { height: '20em', width: '20em', marginLeft: '60em', marginTop: '1em' } }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row col s12', style: { marginTop: '3em' } },
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'col s12', style: { fontSize: '2em' } },
+	            props.playerData.name,
+	            ' #',
+	            props.playerData.number
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row col s12' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'player-height col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'HEIGHT'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.height
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'DOB col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'DOB'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.dob
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'BMI col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'BMI'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.bmi
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'age col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'AGE'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.age
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row col s12' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'current-value col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'CURRENT VALUE'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.currentValue
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'foot col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'FOOT'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.foot
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'position col s2' },
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'player-titles' },
+	              'POSITION'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              props.playerData.position
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'a',
+	            { className: 'col s1', href: props.playerData.twitter, target: 'blank' },
+	            _react2.default.createElement('img', { src: 'http://imgh.us/symbol.svg', style: { height: '2em' } })
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+	BallerInfoHeader.propTypes = {
+	  playerData: _react2.default.PropTypes.object.isRequired
+	};
+	exports.default = BallerInfoHeader;
 
 /***/ }
 /******/ ]);

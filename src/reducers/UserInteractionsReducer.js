@@ -1,4 +1,4 @@
-import { TOGGLE_MENU, TOGGLE_GRID,  } from '../actions/types'
+import { TOGGLE_MENU, TOGGLE_GRID } from '../actions/types'
 
 const UserInteractionsReducer = (state = {}, action) => {
   switch (action.type) {

@@ -17,7 +17,7 @@ const PlayersReducer = (state = {}, action) => {
     case FETCHING_PLAYER:
       return { ...state, fetching: action.fetching }
     case DATA_TYPE:
-      return { ...state, dataType: action.getDataType}
+      return { ...state, dataType: action.getDataType }
     default:
       return state
   }

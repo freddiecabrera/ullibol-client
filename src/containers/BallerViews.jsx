@@ -13,7 +13,8 @@ const BallerViews = React.createClass({
     toggleGrid: func,
     toggleGridView: bool,
     getPlayers: func,
-    allfootballersData: array
+    allfootballersData: array,
+    fetching: bool
   },
   componentWillMount () {
     this.props.getPlayers()
@@ -25,8 +26,8 @@ const BallerViews = React.createClass({
     const allfootballersData = this.props.allfootballersData || []
     console.log('allfootballersData: ', allfootballersData)
     return (
-      this.props.fetching ? <Loader /> :
-      <div>
+      this.props.fetching ? <Loader />
+      : <div>
         <Header { ...this.props } />
         <div className='divider' style={divider}></div>
         <div className='container-fluid'>

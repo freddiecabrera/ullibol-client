@@ -37,7 +37,7 @@ const UllibolPlayersCall = dispatch => {
       const newData = myMap(data, item => {
         return JSON.parse(item)
       })
-      dispatch({ type: FETCHING_PLAYER, fetching: false})
+      dispatch({ type: FETCHING_PLAYER, fetching: false })
       return dispatch({ type: GET_PLAYERS, allfootballersData: newData })
     })
     .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
@@ -52,11 +52,10 @@ export function getPlayers () {
 
 // Get single player data
 const UllibolPlayerDataCall = (dispatch, url) => {
-  console.log('hit')
   axios.get(url)
     .then(response => {
       const data = response.data
-      dispatch({ type: FETCHING_PLAYER, fetching: false})
+      dispatch({ type: FETCHING_PLAYER, fetching: false })
       return dispatch({ type: GET_PLAYER_DATA, playerData: data })
     })
     .catch(error => dispatch({ type: GET_PLAYERS_ERROR, error }))
