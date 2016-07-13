@@ -7,14 +7,11 @@ html {
 body {
   font-family: 'Roboto', Arial, serif;
   font-weight: 400;
-  background-color: #efefef;
+  background-color: rgb(14, 14, 19);
 }
 
-.IndexPageTitleContianer {
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.IndexPageTitleContianer h1 {
+  text-align: center;
 }
 
 .title-logo {
@@ -23,52 +20,40 @@ body {
   text-align: center;
   font-size: 60px;
   padding-bottom: -1%;
-  color: #009d57;
+  color: #00d8ad;
   padding-top: 20%;
   overflow: hidden;
 }
 
-.IndexPageMexicoLogo {
-  height: 120px;
-  margin-left: -55%;
-  margin-top: 11%;
-}
-
-
 .IndexPageTitleContianer p {
+  text-align: center;
   color: #2F3132;
-  margin-top: -7%;
-}
-
-.IndexPageVerticalLine {
-  margin-top: -51%;
-  height: 296px;
-  width: 1px;
-  background: #ef3e33;
-  margin-left: 50%;
-  margin-bottom: -19em;
-}
-
-.IndexPageLoginText {
-  font-family: 'Exo 2', Arial, serif;
-  font-weight: 900;
-  color: #2F3132;
-  padding-bottom: 1em;
-  margin-left: 0em;
-  margin-top: -9em;
-}
-
-.IndexPageCardParagraph {
-  font-size: 11px;
-  text-align: -webkit-left;
-  padding-top: 2em;
-  margin-left: 1em;
+  margin-top: -2%;
 }
 
 .player-titles {
   color: white;
   font-weight: 100;
   font-size: 10px;
+}
+
+input[type=text] {
+  color: #9e9e9e;
+}
+input[type=password] {
+  color: #9e9e9e;
+}
+
+input#email.valid {
+  border-bottom: 1px solid #5e44fd;
+  box-shadow: 0 1px 0 0 #5e44fd;
+  color: #d1d1d1;
+}
+
+input#password.valid {
+  border-bottom: 1px solid #5e44fd;
+  box-shadow: 0 1px 0 0 #5e44fd;
+  color: #d1d1d1;
 }
 
 /* ----------------------------------- Header ----------------------------------- */
@@ -150,3 +135,20 @@ body {
   left: 75px;
   animation: sequence2 1s ease infinite 0.5s;
 }
+
+.data-switch {
+  z-index: 1000;
+  margin-top: 1em;
+  margin-left: 37em;
+  background-color: red;
+  position: absolute;
+}
+
+.chip-container {
+  z-index: 1000;
+  position: absolute;
+  margin-left: 31em;
+  margin-top: 1em;
+}
+
+/*________________________________________________________________________*/

@@ -7,6 +7,7 @@ import { myEach, myMap } from '../HelperFunctions'
 import BallerInfoHeader from '../components/BallerInfoHeader'
 import ControlPanel from '../components/ControlPanel'
 
+
 const { func, object, bool, string } = React.PropTypes
 
 const Baller = React.createClass({
@@ -33,7 +34,7 @@ const Baller = React.createClass({
         type: 'line'
       },
       title: {
-        text: 'Performance Score By Match'
+        text: 'Performance Score'
       },
       xAxis: {
         categories: ['8.11.15', '8.16.15', '8.22.15', '8.30.15', '9.12.15', '10.4.15', '10.17.15', '10.24.15', '10.31.15', '11.8.15', '11.21.15', '11.29.15', '12.5.15', '12.12.15', '12.19.15', '1.17.16', '1.24.16', '1.27.16', '1.30.16', '2.27.16', '3.5.16', '3.12.16', '3.20.16', '5.1.16', '5.8.16']
@@ -73,7 +74,17 @@ const Baller = React.createClass({
           <div className='col s12'>
             <div className='col s12'>
               {this.props.playerData ? <ControlPanel playerData={this.props.playerData} /> : null}
-              <div className='col s7' style={{marginLeft: '-3%'}}><ReactHighcharts config={config} /></div>
+              <div className='col s7' style={{marginLeft: '-3%'}}>
+                <div className='chip-container'>
+                  <div style={{ marginRight: '1em', backgroundColor: 'rgba(0, 0, 0, 0)', border: '2px solid #00D8AD', color: '#333333'}} className='chip'>
+                    By mathch
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(0, 0, 0, 0)', border: '2px solid #00D8AD', color: '#333333'}} className='chip'>
+                    Culmulative
+                  </div>
+                </div>
+                <ReactHighcharts config={config} />
+              </div>
             </div>
           </div>
         </div>

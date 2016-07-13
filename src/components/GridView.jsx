@@ -1,14 +1,13 @@
 import React from 'react'
-import { myMap } from '../HelperFunctions'
 import { ViewButton, EditButton } from '../../public/css/BallerViews'
 import { Link } from 'react-router'
 
 const GridView = props => (
   <div className='container-fluid' style={{marginLeft: '5.5%', marginTop: '3%'}}>
     <div className='row'>
-      {myMap(props.allfootballersData, (player) => {
+      {props.allfootballersData.map((player, index) => {
         return (
-          <div key={player.name} playerName={player.name} className='col s12 m7' style={{width: '19em'}}>
+          <div key={index} playerName={player.name} className='col s12 m7' style={{width: '19em'}}>
             <div className='card' style={{backgroundColor: '#17161D', color: '#444'}}>
               <div className='card-image'>
                 <img src={player.url} style={{height: '24em'}} />
