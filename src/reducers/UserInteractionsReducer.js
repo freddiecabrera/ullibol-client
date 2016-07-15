@@ -1,12 +1,17 @@
-import { TOGGLE_MENU, TOGGLE_GRID } from '../actions/types'
+import { TOGGLE_MENU, TOGGLE_GRID, AUTH_USER, UNAUTH_USER, AUTH_ERROR } from '../actions/types'
 
 const UserInteractionsReducer = (state = {}, action) => {
   switch (action.type) {
     case TOGGLE_MENU:
-      // console.log('TOGGLE_MENU: ', {...state, toggle: action.toggle}) use this as refrence
       return { ...state, toggle: action.toggle }
     case TOGGLE_GRID:
       return { ...state, toggleGridView: action.toggleGridView }
+    case AUTH_USER:
+      return { ...state, authenticated: true }
+    case UNAUTH_USER:
+      return { ...state, authenticated: false }
+    case AUTH_ERROR:
+      return { ...state, error: action.error }
     default:
       return state
   }

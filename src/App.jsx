@@ -4,6 +4,7 @@ import MasterPage from './components/MasterPage'
 import IndexPage from './components/IndexPage'
 import BallerViews from './containers/BallerViews'
 import Baller from './containers/Baller'
+import Signout from './components/Signout'
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -12,6 +13,7 @@ const myRoutes = props => (
     <IndexRoute component={IndexPage} />
     <Route path='ballerviews' component={BallerViews} />
     <Route path='ballerview/:player' component={Baller} />
+    <Route path='/signout' component={Signout} />
   </Route>
 )
 

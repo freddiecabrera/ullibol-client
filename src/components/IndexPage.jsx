@@ -5,6 +5,9 @@ import Signin from './Signin'
 
 const IndexPage = React.createClass({
   render () {
+    if (typeof document !== 'undefined') {
+      document.body.style.backgroundColor = '#0e0e13'
+    }
     return (
       <div>
         <div className='container'>

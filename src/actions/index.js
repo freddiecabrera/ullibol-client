@@ -5,14 +5,18 @@ import {
   GET_PLAYERS_ERROR,
   GET_PLAYER_DATA,
   FETCHING_PLAYER,
-  DATA_TYPE
+  DATA_TYPE,
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR
 } from './types'
 
 import axios from 'axios'
+import { browserHistory } from 'react-router'
 import { myMap } from '../HelperFunctions'
 const ALL_FOOTBALLERS_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/allfootballers/allfootballers'
 const PLAYER_DATA_ULLIBOL_URL = 'http://ullibolserver.herokuapp.com/footballers/'
-
+const AUTH_URL = 'http://ullibolserver.herokuapp.com/'
 // Toggle Menu
 export function toggleMenu (toggle) {
   return {
@@ -75,4 +79,30 @@ export function getDataType (dataType) {
     type: DATA_TYPE,
     getDataType: dataType
   }
+}
+
+export const signinUser = ({ email, password }) => {
+  return function (dispatch) {
+    axios.post(`${AUTH_URL}signin`, { email, password })
+      .then(response => {
+        dispatch({ type: AUTH_USER })
+        dispatch(authError(false))
+        localStorage.setItem('token', response.data.token)
+        browserHistory.push('/ballerviews')
+      })
+      .catch(() => {
+        dispatch(authError(true))
+      })
+  }
+}
+
+const authError = error => ({
+  type: AUTH_ERROR,
+  error
+})
+
+export const signoutUser = () => {
+  localStorage.removeItem('token')
+  return { type: UNAUTH_USER }
+
 }

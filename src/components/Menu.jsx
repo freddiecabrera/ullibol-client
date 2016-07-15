@@ -9,7 +9,7 @@ const Menu = props => (
       <Link to='Profile'><span className='waves-effect waves-light' style={MenuLinks}>Profile</span></Link>
       <span className='waves-effect waves-light' style={MenuLinks}>About</span>
       <span className='waves-effect waves-light' style={MenuLinks}>Contact</span>
-      <span className='waves-effect waves-light' style={MenuLinks}>Sign Out</span>
+      <Link to={'/signout'}><span className='waves-effect waves-light' style={MenuLinks}>Sign Out</span></Link>
     </div>
     <div className='fixed-action-btn horizontal click-to-toggle' style={{top: '10%', right: '11%'}}>
       <i onClick={props.toggleMenu.bind(null, false)} className='material-icons waves-effect waves-light' style={{fontSize: '3em', cursor: 'pointer'}}>clear</i>
