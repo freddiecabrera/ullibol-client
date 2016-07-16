@@ -32080,7 +32080,7 @@
 	      ),
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        { to: '/signout' },
+	        { onClick: props.toggleMenu.bind(null, false), to: '/signout' },
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'waves-effect waves-light', style: _Header.MenuLinks },
