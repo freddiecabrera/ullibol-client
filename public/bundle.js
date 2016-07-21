@@ -19759,6 +19759,10 @@
 
 	var _Signup2 = _interopRequireDefault(_Signup);
 
+	var _RequireAuth = __webpack_require__(331);
+
+	var _RequireAuth2 = _interopRequireDefault(_RequireAuth);
+
 	var _reactRedux = __webpack_require__(226);
 
 	var _store = __webpack_require__(326);
@@ -19772,8 +19776,8 @@
 	    _reactRouter.Route,
 	    { path: '/', component: _MasterPage2.default },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerviews', component: _BallerViews2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerview/:player', component: _Baller2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerviews', component: (0, _RequireAuth2.default)(_BallerViews2.default) }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerview/:player', component: (0, _RequireAuth2.default)(_Baller2.default) }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _Signout2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default })
 	  );
@@ -37312,6 +37316,57 @@
 	};
 
 	exports.default = PlayersReducer;
+
+/***/ },
+/* 331 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (ComposedComponent) {
+	  var Authentication = _react2.default.createClass({
+	    displayName: 'Authentication',
+
+
+	    contextTypes: {
+	      router: _react2.default.PropTypes.object
+	    },
+
+	    componentWillMount: function componentWillMount() {
+	      if (!this.props.authenticated) {
+	        this.context.router.push('/');
+	      }
+	    },
+	    componentWillUpdate: function componentWillUpdate(nextProps) {
+	      if (!nextProps.authenticated) {
+	        this.context.router.push('/');
+	      }
+	    },
+	    render: function render() {
+	      return _react2.default.createElement(ComposedComponent, this.props);
+	    }
+	  });
+
+	  var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	      authenticated: state.UserInteractionsReducer.authenticated
+	    };
+	  };
+
+	  return (0, _reactRedux.connect)(mapStateToProps)(Authentication);
+	};
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(226);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ]);
