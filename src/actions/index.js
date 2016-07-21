@@ -8,7 +8,8 @@ import {
   DATA_TYPE,
   AUTH_USER,
   UNAUTH_USER,
-  AUTH_ERROR
+  AUTH_ERROR,
+  SIGN_UP_USER
 } from './types'
 
 import axios from 'axios'
@@ -105,4 +106,21 @@ export const signoutUser = () => {
   localStorage.removeItem('token')
   return { type: UNAUTH_USER }
 
+}
+
+
+export const signupUser = ({ email, password }) => {
+  return function (dispatch) {
+    axios.post(`${AUTH_URL}signup`, { email, password })
+      .then(response => {
+        dispatch({ type: AUTH_USER })
+        localStorage.setItem('token', response.data.token)
+        browserHistory.push('/ballerviews')
+      })
+      .catch(response => {
+        console.log('response', response.data.error)
+        console.log('authError', AUTH_ERROR);
+        dispatch({ type: AUTH_ERROR, error: response.data.error})
+      })
+  }
 }

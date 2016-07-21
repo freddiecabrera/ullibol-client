@@ -1,5 +1,6 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
+import { Link } from 'react-router'
 import * as actions from '../actions'
 
 
@@ -20,7 +21,7 @@ const Signin = React.createClass({
               <input {...email} placeholder='Email' type='email' id='email'  className='validate' />
               <input {...password} placeholder='Password' type='password' id='password' className='validate' />
               <button action='submit' style={{backgroundColor: '#5E44FD'}} className='btn col s12 waves-effect waves-light'>Sign in</button>
-              <p style={{color: '#efefef', fontSize: '12px', marginTop: '3.4em'}}>Sign up</p>
+              <Link to={'signup'}><p style={{color: '#efefef', fontSize: '12px', marginTop: '3.4em'}}>Sign up</p></Link>
               {this.props.signinError ? <div className="dialogbox-container">
                 <div className="dialogbox">
                   <div className="body">

@@ -7,7 +7,7 @@ const UserInteractionsReducer = (state = {}, action) => {
     case TOGGLE_GRID:
       return { ...state, toggleGridView: action.toggleGridView }
     case AUTH_USER:
-      return { ...state, authenticated: true }
+      return { ...state, error: '', authenticated: true }
     case UNAUTH_USER:
       return { ...state, authenticated: false }
     case AUTH_ERROR:

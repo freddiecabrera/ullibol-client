@@ -19755,9 +19755,13 @@
 
 	var _Signout2 = _interopRequireDefault(_Signout);
 
+	var _Signup = __webpack_require__(325);
+
+	var _Signup2 = _interopRequireDefault(_Signup);
+
 	var _reactRedux = __webpack_require__(226);
 
-	var _store = __webpack_require__(325);
+	var _store = __webpack_require__(326);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -19770,7 +19774,8 @@
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _IndexPage2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerviews', component: _BallerViews2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'ballerview/:player', component: _Baller2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/signout', component: _Signout2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _Signout2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _Signup2.default })
 	  );
 	};
 
@@ -25724,6 +25729,8 @@
 
 	var _reduxForm = __webpack_require__(225);
 
+	var _reactRouter = __webpack_require__(160);
+
 	var _actions = __webpack_require__(289);
 
 	var actions = _interopRequireWildcard(_actions);
@@ -25767,9 +25774,13 @@
 	              'Sign in'
 	            ),
 	            _react2.default.createElement(
-	              'p',
-	              { style: { color: '#efefef', fontSize: '12px', marginTop: '3.4em' } },
-	              'Sign up'
+	              _reactRouter.Link,
+	              { to: 'signup' },
+	              _react2.default.createElement(
+	                'p',
+	                { style: { color: '#efefef', fontSize: '12px', marginTop: '3.4em' } },
+	                'Sign up'
+	              )
 	            ),
 	            this.props.signinError ? _react2.default.createElement(
 	              'div',
@@ -30649,7 +30660,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.signoutUser = exports.signinUser = undefined;
+	exports.signupUser = exports.signoutUser = exports.signinUser = undefined;
 	exports.toggleMenu = toggleMenu;
 	exports.toggleGrid = toggleGrid;
 	exports.getPlayers = getPlayers;
@@ -30763,6 +30774,23 @@
 	  return { type: _types.UNAUTH_USER };
 	};
 
+	var signupUser = exports.signupUser = function signupUser(_ref2) {
+	  var email = _ref2.email;
+	  var password = _ref2.password;
+
+	  return function (dispatch) {
+	    _axios2.default.post(AUTH_URL + 'signup', { email: email, password: password }).then(function (response) {
+	      dispatch({ type: _types.AUTH_USER });
+	      localStorage.setItem('token', response.data.token);
+	      _reactRouter.browserHistory.push('/ballerviews');
+	    }).catch(function (response) {
+	      console.log('response', response.data.error);
+	      console.log('authError', _types.AUTH_ERROR);
+	      dispatch({ type: _types.AUTH_ERROR, error: response.data.error });
+	    });
+	  };
+	};
+
 /***/ },
 /* 290 */
 /***/ function(module, exports) {
@@ -30782,6 +30810,7 @@
 	var AUTH_USER = exports.AUTH_USER = 'AUTH_USER';
 	var UNAUTH_USER = exports.UNAUTH_USER = 'UNAUTH_USER';
 	var AUTH_ERROR = exports.AUTH_ERROR = 'AUTH_ERROR';
+	var SIGN_UP_USER = exports.SIGN_UP_USER = 'SIGN_UP_USER';
 
 /***/ },
 /* 291 */
@@ -36973,15 +37002,174 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxForm = __webpack_require__(225);
+
+	var _reactRouter = __webpack_require__(160);
+
+	var _actions = __webpack_require__(289);
+
+	var actions = _interopRequireWildcard(_actions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Signup = _react2.default.createClass({
+	  displayName: 'Signup',
+	  handleFormSubmit: function handleFormSubmit(formProps) {
+	    this.props.signupUser(formProps);
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var handleSubmit = _props.handleSubmit;
+	    var _props$fields = _props.fields;
+	    var email = _props$fields.email;
+	    var password = _props$fields.password;
+	    var passwordConfirm = _props$fields.passwordConfirm;
+
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'IndexPageTitleContianer' },
+	          _react2.default.createElement(
+	            'h1',
+	            { className: 'title-logo' },
+	            'Ullibol'
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'Welcome to Ullibol | Bienvenido a Ullibol'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: handleSubmit(this.handleFormSubmit) },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col s12' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'login-form col s4 push-s4' },
+	                _react2.default.createElement('input', _extends({}, email, { placeholder: 'Email', type: 'email', id: 'email', className: 'validate' })),
+	                email.touched && email.error && _react2.default.createElement(
+	                  'div',
+	                  { style: { color: '#F50057', fontSize: '10px' } },
+	                  email.error
+	                ),
+	                _react2.default.createElement('input', _extends({}, password, { placeholder: 'Password', type: 'password', id: 'password', className: 'validate' })),
+	                password.touched && password.error && _react2.default.createElement(
+	                  'div',
+	                  { style: { color: '#F50057', fontSize: '10px' } },
+	                  password.error
+	                ),
+	                _react2.default.createElement('input', _extends({}, passwordConfirm, { placeholder: 'Confirm Password', type: 'password', id: 'password', className: 'validate' })),
+	                passwordConfirm.touched && passwordConfirm.error && _react2.default.createElement(
+	                  'div',
+	                  { style: { color: '#F50057', fontSize: '10px' } },
+	                  passwordConfirm.error
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { action: 'submit', style: { backgroundColor: '#5E44FD' }, className: 'btn col s12 waves-effect waves-light' },
+	                  'Sign up'
+	                ),
+	                _react2.default.createElement(
+	                  _reactRouter.Link,
+	                  { to: '/' },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { style: { color: '#efefef', fontSize: '12px', marginTop: '3.4em' } },
+	                    'Sign in'
+	                  )
+	                ),
+	                this.props.errorMessage === 'Email is in use' ? _react2.default.createElement(
+	                  'div',
+	                  { className: 'dialogbox-container' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'dialogbox' },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { className: 'body' },
+	                      _react2.default.createElement('span', { className: 'tip tip-up' }),
+	                      _react2.default.createElement(
+	                        'div',
+	                        { className: 'message' },
+	                        _react2.default.createElement(
+	                          'span',
+	                          null,
+	                          this.props.errorMessage
+	                        )
+	                      )
+	                    )
+	                  )
+	                ) : null
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    errorMessage: state.UserInteractionsReducer.error
+	  };
+	};
+
+	var validate = function validate(formProps) {
+	  var errors = {};
+
+	  !formProps.email ? errors.email = 'Please enter an email' : null;
+	  !formProps.password ? errors.password = 'Please enter an password' : null;
+	  !formProps.passwordConfirm ? errors.passwordConfirm = 'Please enter a password confirmation' : null;
+	  formProps.password !== formProps.passwordConfirm ? errors.password = 'Passwords must match!' : null;
+
+	  return errors;
+	};
+
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'signup',
+	  fields: ['email', 'password', 'passwordConfirm'],
+	  validate: validate
+	}, mapStateToProps, actions)(Signup);
+
+/***/ },
+/* 326 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	var _redux = __webpack_require__(233);
 
-	var _reduxThunk = __webpack_require__(326);
+	var _reduxThunk = __webpack_require__(327);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _reducers = __webpack_require__(327);
+	var _reducers = __webpack_require__(328);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -36994,7 +37182,7 @@
 	exports.default = store;
 
 /***/ },
-/* 326 */
+/* 327 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37022,7 +37210,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 327 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37033,11 +37221,11 @@
 
 	var _redux = __webpack_require__(233);
 
-	var _UserInteractionsReducer = __webpack_require__(328);
+	var _UserInteractionsReducer = __webpack_require__(329);
 
 	var _UserInteractionsReducer2 = _interopRequireDefault(_UserInteractionsReducer);
 
-	var _PlayersReducer = __webpack_require__(329);
+	var _PlayersReducer = __webpack_require__(330);
 
 	var _PlayersReducer2 = _interopRequireDefault(_PlayersReducer);
 
@@ -37054,7 +37242,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 328 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37077,7 +37265,7 @@
 	    case _types.TOGGLE_GRID:
 	      return _extends({}, state, { toggleGridView: action.toggleGridView });
 	    case _types.AUTH_USER:
-	      return _extends({}, state, { authenticated: true });
+	      return _extends({}, state, { error: '', authenticated: true });
 	    case _types.UNAUTH_USER:
 	      return _extends({}, state, { authenticated: false });
 	    case _types.AUTH_ERROR:
@@ -37090,7 +37278,7 @@
 	exports.default = UserInteractionsReducer;
 
 /***/ },
-/* 329 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
