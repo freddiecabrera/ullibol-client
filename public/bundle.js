@@ -19763,6 +19763,8 @@
 
 	var _RequireAuth2 = _interopRequireDefault(_RequireAuth);
 
+	var _types = __webpack_require__(290);
+
 	var _reactRedux = __webpack_require__(226);
 
 	var _store = __webpack_require__(326);
@@ -19770,6 +19772,13 @@
 	var _store2 = _interopRequireDefault(_store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	if (typeof document !== 'undefined') {
+	  var token = localStorage.getItem('token');
+	  if (token) {
+	    _store2.default.dispatch({ type: _types.AUTH_USER });
+	  }
+	}
 
 	var myRoutes = function myRoutes(props) {
 	  return _react2.default.createElement(

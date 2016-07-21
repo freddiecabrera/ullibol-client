@@ -7,8 +7,16 @@ import Baller from './containers/Baller'
 import Signout from './components/Signout'
 import Signup from './components/Signup'
 import RequireAuth from './containers/RequireAuth'
+import { AUTH_USER } from './actions/types'
 import { Provider } from 'react-redux'
 import store from './store'
+
+if (typeof document !== 'undefined') {
+  const token = localStorage.getItem('token')
+  if (token) {
+    store.dispatch({ type: AUTH_USER })
+  }  
+}
 
 const myRoutes = props => (
   <Route path='/' component={MasterPage}>
